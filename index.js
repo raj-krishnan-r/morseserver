@@ -7,9 +7,17 @@ var fs = require('fs');
 
 //Message object
 function message(data,destinationID,sourceID) {
+
+var dated = new Date();
+var hour = dated.getHours();
+var min = dated.getMinutes();
+
+var formattedTime = hour+":"+min;
+
 	this.data = data,
 	this.destinationID = destinationID,
 	this.serverTimed = new Date(),
+	this.ftime = formattedTime,
 	this.sourceID=sourceID/*
 	this.fullName = function() {
 		return this.firstName + " " + this.lastName;
