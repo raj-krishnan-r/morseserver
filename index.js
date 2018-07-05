@@ -9,6 +9,7 @@ var fs = require('fs');
 function message(data,destinationID,sourceID) {
 	this.data = data,
 	this.destinationID = destinationID,
+	this.serverTimed = new Date(),
 	this.sourceID=sourceID/*
 	this.fullName = function() {
 		return this.firstName + " " + this.lastName;
