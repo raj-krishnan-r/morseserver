@@ -1,14 +1,26 @@
-var app = require('express')();
-var http = require('http').Server(app);
 
+var app = require('http').createServer(handler)
+var io = require('socket.io')(app);
+var fs = require('fs');
 
-var port  = process.env.OPENSHIFT_NODEJS_PORT || process.env.OPENSHIFT_INTERNAL_PORT || process.env.PORT || 8080;
-var ip =  process.env.OPENSHIFT_NODEJS_IP || process.env.OPENSHIFT_INTERNAL_IP || 'localhost';
-app.get('/', function(req, res){
-  res.send('<h1>Hello world</h1>');
+app.listen(8080,"0.0.0.0");
+
+function handler (req, res) {
+  fs.readFile(__dirname + '/index.html',
+  function (err, data) {
+    if (err) {
+      res.writeHead(500);
+      return res.end('Error loading index.html');
+    }
+
+    res.writeHead(200);
+    res.end(data);
+  });
+}
+
+io.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
 });
-
-http.listen(8080,"0.0.0.0",null, function(){
-  console.log('listening on *: '+port);
-});
-    

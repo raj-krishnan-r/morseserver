@@ -4,11 +4,12 @@
   "description": "Server for NotesChat.",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "socket.io": "^2.1.1"
   },
   "devDependencies": {},
   "scripts": {
-  	"start":"node index.js",
+    "start": "node index.js",
     "test": "node index.js"
   },
   "repository": {
