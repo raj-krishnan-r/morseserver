@@ -3,7 +3,22 @@ var app = require('http').createServer(handler)
 var io = require('socket.io')(app);
 var fs = require('fs');
 
-app.listen(8080,"0.0.0.0");
+
+
+//Message object
+function message(data,destinationID,sourceID) {
+	this.data = data,
+	this.destinationID = destinationID,
+	this.sourceID=sourceID/*
+	this.fullName = function() {
+		return this.firstName + " " + this.lastName;
+	}*/
+}
+
+
+
+
+app.listen(8080,"localhost");
 
 function handler (req, res) {
   fs.readFile(__dirname + '/index.html',
@@ -19,6 +34,15 @@ function handler (req, res) {
 }
 
 io.on('connection', function (socket) {
+
+
+socket.on("message",function(data){
+var msg = new message(data,null,null);
+socket.emit(JSON.stringify(msg));
+
+
+});
+
   socket.emit('news', { hello: 'world' });
   socket.on('my other event', function (data) {
     console.log(data);

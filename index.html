@@ -1,8 +1,15 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
   var socket = io('http://localhost');
+      socket.emit('message', "This is my message");
+
   socket.on('news', function (data) {
     console.log(data);
     socket.emit('my other event', { my: 'data' });
   });
+
+socket.on("message",function(data){
+	console.log("data");
+});
+
 </script>
