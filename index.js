@@ -18,7 +18,7 @@ function message(data,destinationID,sourceID) {
 
 
 
-app.listen(8080,"localhost");
+app.listen(8080,"0.0.0.0");
 
 function handler (req, res) {
   fs.readFile(__dirname + '/index.html',
@@ -38,13 +38,9 @@ io.on('connection', function (socket) {
 
 socket.on("message",function(data){
 var msg = new message(data,null,null);
-socket.emit(JSON.stringify(msg));
+socket.emit("message",JSON.stringify(msg));
 
 
 });
 
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
 });
