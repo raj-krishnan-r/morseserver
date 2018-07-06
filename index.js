@@ -46,7 +46,8 @@ io.on('connection', function (socket) {
 
 
 socket.on("message",function(data){
-var msg = new message(data,null,null);
+var decoded = JSON.parse(data);
+var msg = new message(decoded.data,null,decoded.sourceID);
 socket.emit("message",JSON.stringify(msg));
 
 
