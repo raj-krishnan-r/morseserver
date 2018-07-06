@@ -14,6 +14,7 @@ var min = dated.getMinutes();
 
 var formattedTime = hour+":"+min;
 
+
 	this.data = data,
 	this.destinationID = destinationID,
 	this.serverTimed = new Date(),
@@ -48,7 +49,7 @@ io.on('connection', function (socket) {
 socket.on("message",function(data){
 var decoded = JSON.parse(data);
 var msg = new message(decoded.data,null,decoded.sourceID);
-socket.emit("message",JSON.stringify(msg));
+socket.broadcast.emit("message",JSON.stringify(msg));
 
 
 });
