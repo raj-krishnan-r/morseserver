@@ -1,9 +1,17 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
   var socket = io('/');
-      socket.emit('message', "This is my message");
 
-socket.emit("message","Alappuza");
+function message(sourceID)
+{
+  this.data="Samplemesage",
+  this.sourceID=sourceID
+}
+
+var msgob = new message(123);
+
+console.log(JSON.stringify(msgob));
+socket.emit("message",JSON.stringify(msgob));
 socket.on("message",function(data){
 	console.log(data);
 });
